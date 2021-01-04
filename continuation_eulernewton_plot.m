@@ -1,6 +1,6 @@
 function [x, it, did_turnaround] = continuation_eulernewton_plot(target_alpha, v, R, tol, maxit)
 
-% modeled on alg. 6.1.10 in [Georg, Allgower] by Federico Poloni
+% modeled on alg. 6.1.10 in [Georg, Allgower] by Federico Poloni and Alberto Bucci
 
 deltatilde = 20;
 
@@ -64,7 +64,10 @@ while true
         k = k + 1;
         it = it + 1;
         JH = [alpha*R*(kron(x, I) + kron(I, x)) - I, R*kron(x, x)-v];
-        newton_step = - pinv(JH)*H; % careful: JH \ H does something different in Matlab
+        [Q, r] = qr(JH');
+        Q = Q(:,1:n);
+        r = r(1:n, :);
+        newton_step = - Q*(r'\H); %Moore-Penrose inverse is Q*inv(r');
         if k == 1
             delta = norm(newton_step,1) / h^2;
             f = sqrt(delta / deltatilde);
