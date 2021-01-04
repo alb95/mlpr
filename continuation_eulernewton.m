@@ -1,4 +1,4 @@
-function [x, it, did_turnaround] = continuation_eulernewton_bis(target_alpha, v, R, tol, maxit)
+function [x, it, did_turnaround] = continuation_eulernewton(target_alpha, v, R, tol, maxit)
 
 % modeled on alg. 6.1.10 in [Georg, Allgower] by Federico Poloni and Alberto Bucci
 
