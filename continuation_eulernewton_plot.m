@@ -3,6 +3,8 @@ function [x, it, did_turnaround] = continuation_eulernewton_plot(target_alpha, v
 % modeled on alg. 6.1.10 in [Georg, Allgower] by Federico Poloni and Alberto Bucci
 
 deltatilde = 20;
+delta = 0.1;
+f = sqrt(delta/deltatilde);
 
 if not(exist('tol','var')) || isempty(eps)
     tol = sqrt(eps);
