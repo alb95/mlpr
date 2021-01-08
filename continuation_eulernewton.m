@@ -3,6 +3,8 @@ function [x, it, did_turnaround] = continuation_eulernewton(target_alpha, v, R, 
 % modeled on alg. 6.1.10 in [Georg, Allgower] by Federico Poloni and Alberto Bucci
 
 deltatilde = 20;
+delta = 0.1;
+f = sqrt(delta/deltatilde);
 
 if not(exist('tol','var')) || isempty(eps)
     tol = sqrt(eps);
@@ -113,4 +115,3 @@ assert(abs(alpha - target_alpha) < tol);
 [x, itn] = newton(target_alpha, v, R, tol, maxit - it, x);
 %fprintf('Final fixed-alpha Newton required %d iterations:\n', itn);
 it = it + itn;
-
