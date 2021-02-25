@@ -2,9 +2,8 @@ function [x, it, did_turnaround] = continuation_eulernewton(target_alpha, v, R, 
 
 % modeled on alg. 6.1.10 in [Georg, Allgower] by Federico Poloni and Alberto Bucci
 
-deltatilde = 20;
-delta = 0.1;
-f = sqrt(delta/deltatilde);
+deltatilde = 0.1;
+f = 1;
 
 if not(exist('tol','var')) || isempty(eps)
     tol = sqrt(eps);
@@ -71,7 +70,7 @@ while true
         r = r(1:n, :);
         newton_step = - Q*(r'\H); %Moore-Penrose inverse is Q*inv(r');
         if k == 1
-            delta = norm(newton_step,1) / h^2;
+            delta = norm(newton_step,1);
             f = sqrt(delta / deltatilde);
             if f > 2
                 repeat_predictor = true;
@@ -101,7 +100,7 @@ while true
     % update step size
     f = max(f, 1/2); f = min(f, 2); %clamps f to [1/2, 2]
     h = h / f;
-    h = min(h, 0.1); % limits max step size
+    h = min(h, 0.05); % limits max step size
     % set up iteration
     previous_direction = y - y_old;
 end
